@@ -148,17 +148,17 @@ int shortestLadderGram(std::unordered_map<std::string, bool>& dict,
 int main(int argc, char * argv[])
 {
     if (argc < 3) {
-        std::cerr << "ERROR: expected 2 arguments <source> <target>; received: "
-                  << argc-1 << " arguments.\n";
-        std::terminate();
+        std::string msg = "ERROR: expected 2 arguments <source> <target>; received: "
+                  + argc-1;
+        throw std::runtime_error(msg + " arguments.\n");
     }
 
     std::string source(argv[1]);
     std::string target(argv[2]);
 
     if (source.size() != target.size()) {
-        std::cerr << "ERROR: source and target must be equal length.\n";
-        std::terminate();
+        std::string msg = "ERROR: source and target must be equal length.\n";
+         throw std::runtime_error(msg);
     }
 
     std::unordered_map<std::string, bool> dict;
@@ -169,8 +169,8 @@ int main(int argc, char * argv[])
 
     // First confirm that the target string is in the dictionary.
     if (dict.find(target) == dict.end()) { // O(1)
-        std::cerr << "Target \"" << target << "\" is not in the dictionary." << std::endl;
-        std::terminate();
+        std::string msg = "Target \"" + target + "\" is not in the dictionary.\n";
+        throw std::runtime_error(msg);
     }
 
     // Firstly try to swapping letters from source to target.
